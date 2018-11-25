@@ -10,7 +10,10 @@ import matplotlib.pyplot as plt
 import qlearn
 # import liveplot
 from gym import wrappers
-from liveplot import LivePlot 
+from liveplot import LivePlot
+import rospy
+
+import my_custom_env
 
 def render():
     render_skip = 0 #Skip first X episodes.
@@ -24,14 +27,17 @@ def render():
 
 if __name__ == '__main__':
 
-    env = gym.make('GazeboCircuitTurtlebotLidar-v0')
-    print "Gym Makde done"
+    rospy.init_node('turtle_gym', anonymous=True) #This is the line you have to add
+
+    env = gym.make('MyCustomEnvSpeed-v0')
+
+    print("Gym Makde done")
     outdir = '/tmp/gazebo_gym_experiments'
     #outdir = '/home/user/catkin_ws/src/gym_construct/src/gazebo_gym_experiments'
     # env.monitor.start(outdir, force=True, seed=None)       # I had to comment this and
     env = wrappers.Monitor(env, outdir, force=True)          # use this to avoid warnings
     #plotter = LivePlot(outdir)
-    print "Monitor Wrapper started"
+    print("Monitor Wrapper started")
     last_time_steps = numpy.ndarray(0)
 
     qlearn = qlearn.QLearn(actions=range(env.action_space.n),
@@ -49,15 +55,15 @@ if __name__ == '__main__':
         done = False
 
         cumulated_reward = 0 #Should going forward give more reward then L/R ?
-        print ("Episode = "+str(x))
+        print(("Episode = "+str(x)))
         observation = env.reset()
         if qlearn.epsilon > 0.05:
             qlearn.epsilon *= epsilon_discount
 
         #render()
-        print "Starting Render"
+        print("Starting Render")
         env.render()
-        print "End Render"
+        print("End Render")
         state = ''.join(map(str, observation))
         max_range = 1000
         for i in range(max_range):
@@ -79,16 +85,16 @@ if __name__ == '__main__':
             if not(done):
                 state = nextState
             else:
-                print "DONE"
+                print("DONE")
                 last_time_steps = numpy.append(last_time_steps, [int(i + 1)])
-                break 
+                break
 
         m, s = divmod(int(time.time() - start_time), 60)
         h, m = divmod(m, 60)
-        print ("EP: "+str(x+1)+" - [alpha: "+str(round(qlearn.alpha,2))+" - gamma: "+str(round(qlearn.gamma,2))+" - epsilon: "+str(round(qlearn.epsilon,2))+"] - Reward: "+str(cumulated_reward)+"     Time: %d:%02d:%02d" % (h, m, s))
+        print(("EP: "+str(x+1)+" - [alpha: "+str(round(qlearn.alpha,2))+" - gamma: "+str(round(qlearn.gamma,2))+" - epsilon: "+str(round(qlearn.epsilon,2))+"] - Reward: "+str(cumulated_reward)+"     Time: %d:%02d:%02d" % (h, m, s)))
 
     #Github table content
-    print ("\n|"+str(total_episodes)+"|"+str(qlearn.alpha)+"|"+str(qlearn.gamma)+"|"+str(initial_epsilon)+"*"+str(epsilon_discount)+"|"+str(highest_reward)+"| PICTURE |")
+    print(("\n|"+str(total_episodes)+"|"+str(qlearn.alpha)+"|"+str(qlearn.gamma)+"|"+str(initial_epsilon)+"*"+str(epsilon_discount)+"|"+str(highest_reward)+"| PICTURE |"))
 
     l = last_time_steps.tolist()
     l.sort()
