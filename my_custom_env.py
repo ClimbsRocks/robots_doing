@@ -60,7 +60,7 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
         rospy.wait_for_service('/gazebo/unpause_physics')
         try:
             self.unpause()
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             print(("/gazebo/unpause_physics service call failed"))
         if action == 0: #FORWARD
             vel_cmd = Twist()
@@ -94,7 +94,7 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
         try:
             #resp_pause = pause.call()
             self.pause()
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             print(("/gazebo/pause_physics service call failed"))
 
         state,done = self.discretize_observation(data,5)
@@ -118,7 +118,7 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
         try:
             #reset_proxy.call()
             self.reset_proxy()
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             print(("/gazebo/reset_simulation service call failed"))
 
         # Unpause simulation to make observation
@@ -126,7 +126,7 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
         try:
             #resp_pause = pause.call()
             self.unpause()
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             print(("/gazebo/unpause_physics service call failed"))
 
         #read laser data
