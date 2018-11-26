@@ -32,10 +32,10 @@ rm -rf openai_ros/.git
 rm -rf theconstruct_msgs/.git
 
 cd ~/python3_ws/src
-# git init
-# git remote add origin https://github.com/ClimbsRocks/learning_backup.git
-# mv CMakeLists.txt CMakeLists.txt_backup
-# git pull origin master
+git init
+git remote add origin https://github.com/ClimbsRocks/robots_doing.git
+mv CMakeLists.txt CMakeLists.txt_backup
+git pull origin master
 
 git config --global user.email "ClimbsBytes@gmail.com"
 git config --global user.name "ClimbsRocks"
@@ -44,3 +44,10 @@ cd ~/python3_ws
 rm -rf build devel
 catkin_make --force-cmake
 source devel/setup.bash
+
+cd ~/python3_ws/src/baselines
+source venv/bin/activate
+cd ~/python3_ws
+source devel/setup.bash
+
+python src/deepq_tbot1.py
