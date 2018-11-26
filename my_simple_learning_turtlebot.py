@@ -15,6 +15,20 @@ import rospy
 
 import my_custom_env
 
+# #########
+# Constants
+# #########
+qlearn = qlearn.QLearn(actions=range(env.action_space.n),
+                alpha=0.1, gamma=0.8, epsilon=0.9)
+
+initial_epsilon = qlearn.epsilon
+
+epsilon_discount = 0.999 # 1098 eps to reach 0.1
+
+total_episodes = 10000
+
+
+
 def render():
     render_skip = 0 #Skip first X episodes.
     render_interval = 50 #Show render Every Y episodes.
@@ -31,6 +45,7 @@ if __name__ == '__main__':
 
     env = gym.make('MyCustomEnvSpeed-v0')
 
+    start_time = time.time()
     print("Gym Makde done")
     outdir = '/tmp/gazebo_gym_experiments'
     #outdir = '/home/user/catkin_ws/src/gym_construct/src/gazebo_gym_experiments'
@@ -40,15 +55,6 @@ if __name__ == '__main__':
     print("Monitor Wrapper started")
     last_time_steps = numpy.ndarray(0)
 
-    qlearn = qlearn.QLearn(actions=range(env.action_space.n),
-                    alpha=0.1, gamma=0.8, epsilon=0.9)
-
-    initial_epsilon = qlearn.epsilon
-
-    epsilon_discount = 0.999 # 1098 eps to reach 0.1
-
-    start_time = time.time()
-    total_episodes = 10
     highest_reward = 0
 
     for x in range(total_episodes):
