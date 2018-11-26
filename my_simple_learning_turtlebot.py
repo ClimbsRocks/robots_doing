@@ -58,57 +58,62 @@ if __name__ == '__main__':
 
     highest_reward = 0
 
-    for x in range(total_episodes):
-        done = False
+    try:
+        for x in range(total_episodes):
+            done = False
 
-        cumulated_reward = 0 #Should going forward give more reward then L/R ?
-        print(("Episode = "+str(x)))
-        observation = env.reset()
-        if qlearn.epsilon > 0.05:
-            qlearn.epsilon *= epsilon_discount
+            cumulated_reward = 0 #Should going forward give more reward then L/R ?
+            print(("Episode = "+str(x)))
+            observation = env.reset()
+            if qlearn.epsilon > 0.05:
+                qlearn.epsilon *= epsilon_discount
 
-        #render()
-        print("Starting Render")
-        env.render()
-        print("End Render")
-        state = ''.join(map(str, observation))
-        max_range = 1000
-        for i in range(max_range):
+            #render()
+            print("Starting Render")
+            env.render()
+            print("End Render")
+            state = ''.join(map(str, observation))
+            max_range = 1000
+            for i in range(max_range):
 
-            # Pick an action based on the current state
-            action = qlearn.chooseAction(state)
-            # Execute the action and get feedback
-            observation, reward, done, info = env.step(action)
-            cumulated_reward += reward
-            if highest_reward < cumulated_reward:
-                highest_reward = cumulated_reward
+                # Pick an action based on the current state
+                action = qlearn.chooseAction(state)
+                # Execute the action and get feedback
+                observation, reward, done, info = env.step(action)
+                cumulated_reward += reward
+                if highest_reward < cumulated_reward:
+                    highest_reward = cumulated_reward
 
-            nextState = ''.join(map(str, observation))
+                nextState = ''.join(map(str, observation))
 
-            qlearn.learn(state, action, reward, nextState)
+                qlearn.learn(state, action, reward, nextState)
 
-            #env.monitor.flush(force=True)
+                #env.monitor.flush(force=True)
 
-            if not(done):
-                state = nextState
-            else:
-                print("DONE")
-                last_time_steps = numpy.append(last_time_steps, [int(i + 1)])
-                break
+                if not(done):
+                    state = nextState
+                else:
+                    print("DONE")
+                    last_time_steps = numpy.append(last_time_steps, [int(i + 1)])
+                    break
 
-        m, s = divmod(int(time.time() - start_time), 60)
-        h, m = divmod(m, 60)
-        print(("EP: "+str(x+1)+" - [alpha: "+str(round(qlearn.alpha,2))+" - gamma: "+str(round(qlearn.gamma,2))+" - epsilon: "+str(round(qlearn.epsilon,2))+"] - Reward: "+str(cumulated_reward)+"     Time: %d:%02d:%02d" % (h, m, s)))
+            m, s = divmod(int(time.time() - start_time), 60)
+            h, m = divmod(m, 60)
+            print(("EP: "+str(x+1)+" - [alpha: "+str(round(qlearn.alpha,2))+" - gamma: "+str(round(qlearn.gamma,2))+" - epsilon: "+str(round(qlearn.epsilon,2))+"] - Reward: "+str(cumulated_reward)+"     Time: %d:%02d:%02d" % (h, m, s)))
 
-    #Github table content
-    print(("\n|"+str(total_episodes)+"|"+str(qlearn.alpha)+"|"+str(qlearn.gamma)+"|"+str(initial_epsilon)+"*"+str(epsilon_discount)+"|"+str(highest_reward)+"| PICTURE |"))
+        #Github table content
+        print(("\n|"+str(total_episodes)+"|"+str(qlearn.alpha)+"|"+str(qlearn.gamma)+"|"+str(initial_epsilon)+"*"+str(epsilon_discount)+"|"+str(highest_reward)+"| PICTURE |"))
 
-    l = last_time_steps.tolist()
-    l.sort()
+        l = last_time_steps.tolist()
+        l.sort()
 
-    #print("Parameters: a="+str)
-    print("Overall score: {:0.2f}".format(last_time_steps.mean()))
-    print("Best 100 score: {:0.2f}".format(reduce(lambda x, y: x + y, l[-100:]) / len(l[-100:])))
+        #print("Parameters: a="+str)
+        print("Overall score: {:0.2f}".format(last_time_steps.mean()))
+        print("Best 100 score: {:0.2f}".format(reduce(lambda x, y: x + y, l[-100:]) / len(l[-100:])))
 
-    env.monitor.close()
-    env.close()
+    except Exception as e:
+        print(e)
+        env.reset()
+        env.monitor.close()
+        env.close()
+        raise(e)
