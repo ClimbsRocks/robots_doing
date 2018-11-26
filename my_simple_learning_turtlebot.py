@@ -16,8 +16,6 @@ import rospy
 import my_custom_env
 
 
-
-
 def render():
     render_skip = 0 #Skip first X episodes.
     render_interval = 50 #Show render Every Y episodes.
