@@ -15,17 +15,6 @@ import rospy
 
 import my_custom_env
 
-# #########
-# Constants
-# #########
-qlearn = qlearn.QLearn(actions=range(env.action_space.n),
-                alpha=0.1, gamma=0.8, epsilon=0.9)
-
-initial_epsilon = qlearn.epsilon
-
-epsilon_discount = 0.999 # 1098 eps to reach 0.1
-
-total_episodes = 10000
 
 
 
@@ -44,6 +33,18 @@ if __name__ == '__main__':
     rospy.init_node('turtle_gym', anonymous=True) #This is the line you have to add
 
     env = gym.make('MyCustomEnvSpeed-v0')
+
+    # #########
+    # Constants
+    # #########
+    qlearn = qlearn.QLearn(actions=range(env.action_space.n),
+                    alpha=0.1, gamma=0.8, epsilon=0.9)
+
+    initial_epsilon = qlearn.epsilon
+
+    epsilon_discount = 0.999 # 1098 eps to reach 0.1
+
+    total_episodes = 10000
 
     start_time = time.time()
     print("Gym Makde done")
@@ -109,5 +110,5 @@ if __name__ == '__main__':
     print("Overall score: {:0.2f}".format(last_time_steps.mean()))
     print("Best 100 score: {:0.2f}".format(reduce(lambda x, y: x + y, l[-100:]) / len(l[-100:])))
 
-    #env.monitor.close()
-    #env.close()
+    env.monitor.close()
+    env.close()
