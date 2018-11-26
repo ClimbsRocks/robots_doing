@@ -77,7 +77,7 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
             vel_cmd.linear.x = 0.05
             vel_cmd.angular.z = -0.3
             self.vel_pub.publish(vel_cmd)
-        elif action == 3: #RIGHT
+        elif action == 3: #FASTER!
             vel_cmd = Twist()
             vel_cmd.linear.x = 0.7
             vel_cmd.angular.z = 0.0
@@ -102,6 +102,8 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
         if not done:
             if action == 0:
                 reward = 5
+            elif action == 3:
+                reward = 10
             else:
                 reward = 1
         else:
