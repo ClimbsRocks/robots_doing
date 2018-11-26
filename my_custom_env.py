@@ -30,7 +30,7 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
         self.pause = rospy.ServiceProxy('/gazebo/pause_physics', Empty)
         self.reset_proxy = rospy.ServiceProxy('/gazebo/reset_simulation', Empty)
 
-        self.action_space = spaces.Discrete(3) #F,L,R
+        self.action_space = spaces.Discrete(4) #F,L,R,Faster
         self.reward_range = (-np.inf, np.inf)
 
         self._seed()
@@ -76,6 +76,11 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
             vel_cmd = Twist()
             vel_cmd.linear.x = 0.05
             vel_cmd.angular.z = -0.3
+            self.vel_pub.publish(vel_cmd)
+        elif action == 3: #RIGHT
+            vel_cmd = Twist()
+            vel_cmd.linear.x = 0.7
+            vel_cmd.angular.z = 0.0
             self.vel_pub.publish(vel_cmd)
 
         data = None
