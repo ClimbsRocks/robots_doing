@@ -26,10 +26,14 @@ git clone https://github.com/ros/geometry
 git clone https://github.com/ros/geometry2
 git clone https://bitbucket.org/theconstructcore/openai_ros.git
 git clone https://bitbucket.org/theconstructcore/theconstruct_msgs.git
+git clone https://github.com/erlerobot/gym-gazebo.git
 rm -rf geometry/.git
 rm -rf geometry2/.git
 rm -rf openai_ros/.git
 rm -rf theconstruct_msgs/.git
+rm -rf gym-gazebo/.git
+cd gym-gazebo
+pip install -e .
 
 cd ~/python3_ws/src
 git init
