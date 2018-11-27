@@ -16,9 +16,12 @@ def main():
 
     rospy.init_node('deep_turtle_gym', anonymous=True) #This is the line you have to add
 
+    print('making env')
     env = gym.make('MyCustomEnvSpeed-v0')
+    print('made env')
 
-    model = deepq.models.mlp([64])
+    # model = deepq.models.mlp([64])
+    print('entering deepq.learn')
     act = deepq.learn(
         env,
         network='mlp',

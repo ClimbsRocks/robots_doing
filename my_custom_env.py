@@ -23,6 +23,7 @@ reg = register(
 class MyCustomEnv(gazebo_env.GazeboEnv):
 
     def __init__(self):
+        print('starting init')
         # Launch the simulation with the given launchfile name
         # gazebo_env.GazeboEnv.__init__(self, "GazeboCircuitTurtlebotLidar_v0.launch")
         self.vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
@@ -31,15 +32,18 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
         self.reset_proxy = rospy.ServiceProxy('/gazebo/reset_simulation', Empty)
 
         self.action_space = spaces.Discrete(4) #F,L,R,Faster
+        self.observation_space = spaces.Discrete(5)
         self.reward_range = (-np.inf, np.inf)
 
         self._seed()
+        print('ended init')
 
     def discretize_observation(self,data,new_ranges):
+        print('starting discretize_observation')
         discretized_ranges = []
         min_range = 0.2
         done = False
-        mod = len(data.ranges)/new_ranges
+        mod = len(data.ranges) / new_ranges
         for i, item in enumerate(data.ranges):
             if (i%mod==0):
                 if data.ranges[i] == float ('Inf'):
@@ -50,13 +54,16 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
                     discretized_ranges.append(int(data.ranges[i]))
             if (min_range > data.ranges[i] > 0):
                 done = True
-        return discretized_ranges,done
+
+        print('ending discretize_observation')
+        return discretized_ranges, done
 
     def _seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
         return [seed]
 
     def _step(self, action):
+        print('starting _step')
         rospy.wait_for_service('/gazebo/unpause_physics')
         try:
             self.unpause()
@@ -83,13 +90,17 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
             vel_cmd.angular.z = 0.0
             self.vel_pub.publish(vel_cmd)
 
+        print('made it through choosing and publishing action')
         data = None
         while data is None:
             try:
                 data = rospy.wait_for_message('/kobuki/laser/scan', LaserScan, timeout=5)
+            except KeyboardInterrupt as e:
+                data = 'hi'
             except:
                 print("Time out /kobuki/laser/scan")
                 pass
+        print('got data')
         rospy.wait_for_service('/gazebo/pause_physics')
         try:
             #resp_pause = pause.call()
@@ -97,7 +108,9 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
         except rospy.ServiceException as e:
             print(("/gazebo/pause_physics service call failed"))
 
+        print('starting discretize_observation')
         state,done = self.discretize_observation(data,5)
+        print('done with discretize_observation')
 
         if not done:
             if action == 0:
@@ -109,6 +122,7 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
         else:
             reward = -200
 
+        print('returning state, reward, done, {}')
         return state, reward, done, {}
 
     def _reset(self):
