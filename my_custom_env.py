@@ -62,7 +62,7 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
         self.np_random, seed = seeding.np_random(seed)
         return [seed]
 
-    def _step(self, action):
+    def step(self, action):
         print('starting _step')
         rospy.wait_for_service('/gazebo/unpause_physics')
         try:
@@ -125,7 +125,7 @@ class MyCustomEnv(gazebo_env.GazeboEnv):
         print('returning state, reward, done, {}')
         return state, reward, done, {}
 
-    def _reset(self):
+    def reset(self):
 
         # Resets the state of the environment and returns an initial observation.
         rospy.wait_for_service('/gazebo/reset_simulation')

@@ -53,5 +53,7 @@ cd ~/python3_ws/src/baselines
 source venv/bin/activate
 cd ~/python3_ws
 source devel/setup.bash
+cd ~/python3_ws/src
+git pull origin master
 
-python src/deepq_tbot1.py
+python deepq_tbot1.py
