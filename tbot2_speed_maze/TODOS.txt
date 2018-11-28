@@ -1,0 +1,11 @@
+DONE! 1. Copy in working files from maze example (robot and task)
+
+DONE. I think. 2. Modify robot env first, based from maze example, to match our new task (speed maze)
+
+3. Modify task env, based from maze example
+4. Make sure the rest of our boilerplate is set up
+    A. launch
+    B. config
+5. Run it and see what breaks!
+
+
