@@ -3,12 +3,12 @@ import gym
 from baselines import deepq
 import rospy
 
-import my_custom_env
+import task_env_tbot2_speed_maze
 
 
 def callback(lcl, _glb):
     # stop training if reward exceeds 199
-    is_solved = lcl['t'] > 100 and sum(lcl['episode_rewards'][-101:-1]) / 100 >= 199
+    is_solved = lcl['t'] > 100 and sum(lcl['episode_rewards'][-101:-1]) / 100 >= 1000
     return is_solved
 
 
@@ -17,7 +17,7 @@ def main():
     rospy.init_node('deep_turtle_gym', anonymous=True) #This is the line you have to add
 
     print('making env')
-    env = gym.make('MyCustomEnvSpeed-v0')
+    env = gym.make('TurtleBot2SpeedMaze-v0')
     print('made env')
 
     # model = deepq.models.mlp([64])
