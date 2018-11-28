@@ -10,7 +10,9 @@ timestep_limit_per_episode = 10000 # Can be any Value
 
 register(
         id='TurtleBot2SpeedMaze-v0',
-        entry_point='tbot2_speed_maze:TurtleBot2SpeedMazeTaskEnv',
+        # entry_point='tbot2_speed_maze:TurtleBot2SpeedMazeTaskEnv',
+        entry_point='task_env_tbot2_speed_maze:TurtleBot2SpeedMazeTaskEnv',
+
         timestep_limit=timestep_limit_per_episode,
     )
 

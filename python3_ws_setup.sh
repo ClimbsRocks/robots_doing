@@ -54,6 +54,6 @@ source venv/bin/activate
 cd ~/python3_ws
 source devel/setup.bash
 cd ~/python3_ws/src
-git pull origin master
+git pull origin deepq
 
-python deepq_tbot1.py
+roslaunch tbot2_speed_maze start_training.launch
