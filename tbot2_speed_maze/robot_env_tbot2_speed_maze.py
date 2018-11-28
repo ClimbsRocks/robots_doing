@@ -70,9 +70,9 @@ class TurtleBot2RobotEnv(robot_gazebo_env.RobotGazeboEnv):
         rospy.Subscriber("/camera/rgb/image_raw", Image, self._camera_rgb_image_raw_callback)
         rospy.Subscriber("/kobuki/laser/scan", LaserScan, self._laser_scan_callback)
 
-        self.publishers = []
+        # self.publishers = []
         self._cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-        self.publishers.append(self._cmd_vel_pub)
+        # self.publishers.append(self._cmd_vel_pub)
 
         self._check_publishers_connection()
 
@@ -197,15 +197,15 @@ class TurtleBot2RobotEnv(robot_gazebo_env.RobotGazeboEnv):
         """
         rate = rospy.Rate(10)  # 10hz
 
-        for pub in self.publishers:
-            while pub.get_num_connections() == 0 and not rospy.is_shutdown():
-                rospy.logdebug("No susbribers to {} yet so we wait and try again".format(pub))
-                try:
-                    rate.sleep()
-                except rospy.ROSInterruptException:
-                    # This is to avoid error when world is rested, time when backwards.
-                    pass
-            rospy.logdebug("{} Publisher Connected".format(pub))
+        # for pub in self.publishers:
+        while self._cmd_vel_pub.get_num_connections() == 0 and not rospy.is_shutdown():
+            rospy.logdebug("No susbribers to _cmd_vel_pub yet so we wait and try again")
+            try:
+                rate.sleep()
+            except rospy.ROSInterruptException:
+                # This is to avoid error when world is rested, time when backwards.
+                pass
+        rospy.logdebug("_cmd_vel_pub Publisher Connected")
 
         rospy.logdebug("All Publishers READY")
 
