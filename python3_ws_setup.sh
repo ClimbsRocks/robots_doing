@@ -56,4 +56,4 @@ source devel/setup.bash
 cd ~/python3_ws/src
 git pull origin master
 
-# python deepq_tbot1.py
+python deepq_tbot1.py
