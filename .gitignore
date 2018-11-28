@@ -1,1 +1,7 @@
 .c9
+baselines
+geometry
+geometry2
+gym-gazebo
+openai_ros
+theconstruct_msgs
