@@ -62,8 +62,8 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         # In the discretization method.
         laser_scan = self._check_laser_scan_ready()
         num_laser_readings = len(laser_scan.ranges) / self.new_ranges
-        high = numpy.full((num_laser_readings), int(self.max_laser_value))
-        low = numpy.full((num_laser_readings), int(self.min_laser_value))
+        high = numpy.full((int(num_laser_readings)), int(self.max_laser_value))
+        low = numpy.full((int(num_laser_readings)), int(self.min_laser_value))
 
         # We only use two integers (???? That makes little sense)
         self.observation_space = spaces.Box(low, high)
