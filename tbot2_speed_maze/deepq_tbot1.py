@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import gym
 
 from baselines import deepq
