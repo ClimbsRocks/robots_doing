@@ -175,7 +175,9 @@ class TurtleBot2RobotEnv(robot_gazebo_env.RobotGazeboEnv):
                 self.laser_scan = rospy.wait_for_message("/kobuki/laser/scan", LaserScan, timeout=5.0)
                 rospy.logdebug("Current /kobuki/laser/scan READY=>")
 
-            except:
+            except Exception as e:
+                print(e)
+                raise(e)
                 rospy.logerr("Current /kobuki/laser/scan not ready yet, retrying for getting laser_scan")
         return self.laser_scan
 

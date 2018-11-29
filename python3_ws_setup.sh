@@ -39,6 +39,7 @@ cd ~/python3_ws/src
 git init
 git remote add origin https://github.com/ClimbsRocks/robots_doing.git
 mv CMakeLists.txt CMakeLists.txt_backup
+git fetch
 git pull origin master
 
 git config --global user.email "ClimbsBytes@gmail.com"
@@ -54,6 +55,7 @@ source venv/bin/activate
 cd ~/python3_ws
 source devel/setup.bash
 cd ~/python3_ws/src
+git checkout deepq
 git pull origin deepq
 
 roslaunch tbot2_speed_maze start_training.launch
