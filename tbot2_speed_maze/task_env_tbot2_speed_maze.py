@@ -57,6 +57,7 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         self.min_laser_value = rospy.get_param('/turtlebot2/min_laser_value')
 
 
+        super().__init__()
 
         # We create two arrays based on the binary values that will be assigned
         # In the discretization method.
@@ -79,7 +80,6 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         self.cumulated_steps = 0.0
 
         # Here we will add any init functions prior to starting the MyRobotEnv
-        super().__init__()
         # super(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv, self).__init__(robot_name_space='turtlebot2_speed_maze'
         #                                                                     , controllers_list=None
         #                                                                     , reset_controls=False
