@@ -51,7 +51,8 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         self.init_linear_forward_speed = rospy.get_param('/turtlebot2/init_linear_forward_speed')
         self.init_linear_turn_speed = rospy.get_param('/turtlebot2/init_linear_turn_speed')
 
-        self.new_ranges = rospy.get_param('/turtlebot2/new_ranges')
+        # self.new_ranges = rospy.get_param('/turtlebot2/new_ranges')
+        self.len_observations = rospy.get_param('/turtlebot2/len_observations')
         self.min_range = rospy.get_param('/turtlebot2/min_range')
         self.max_laser_value = rospy.get_param('/turtlebot2/max_laser_value')
         self.min_laser_value = rospy.get_param('/turtlebot2/min_laser_value')
@@ -63,11 +64,12 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         # In the discretization method.
         laser_scan = self._check_laser_scan_ready()
         print('laser_scan: {}'.format(laser_scan))
-        num_laser_readings = len(laser_scan.ranges) / self.new_ranges
-        print('num_laser_readings: {}'.format(num_laser_readings))
-        high = numpy.full((int(num_laser_readings)), int(self.max_laser_value))
+        # num_laser_readings = len(laser_scan.ranges) / self.new_ranges
+        # print('new_ranges: {}'.format(self.new_ranges))
+        # print('num_laser_readings: {}'.format(num_laser_readings))
+        high = numpy.full((int(len_observations)), int(self.max_laser_value))
         print('high: {}'.format(high))
-        low = numpy.full((int(num_laser_readings)), int(self.min_laser_value))
+        low = numpy.full((int(len_observations)), int(self.min_laser_value))
         print('low: {}'.format(low))
 
         # We only use two integers (???? That makes little sense)
@@ -152,7 +154,7 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         laser_scan = self.get_laser_scan()
 
         discretized_observations = self.discretize_observation( laser_scan,
-                                                                self.new_ranges
+                                                                self.len_observations
                                                                 )
 
         rospy.logdebug("Observations==>"+str(discretized_observations))
@@ -191,22 +193,22 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
 
     # Internal TaskEnv Methods
 
-    def discretize_observation(self,data,new_ranges):
+    def discretize_observation(self, data, len_observations):
         """
-        Discards all the laser readings that are not multiple in index of new_ranges
+        Discards all the laser readings that are not multiple in index of len_observations
         value.
         """
         self._episode_done = False
 
         discretized_ranges = []
-        mod = len(data.ranges) / new_ranges
+        keep_idx_mod = len(data.ranges) / len_observations
 
         rospy.logdebug("data=" + str(data))
-        rospy.logdebug("new_ranges=" + str(new_ranges))
-        rospy.logdebug("mod=" + str(mod))
+        rospy.logdebug("len_observations=" + str(len_observations))
+        rospy.logdebug("keep_idx_mod=" + str(keep_idx_mod))
 
-        for i, item in enumerate(data.ranges):
-            if i % mod == 0:
+        for idx, item in enumerate(data.ranges):
+            if idx % keep_idx_mod == 0:
                 if item == float ('Inf') or numpy.isinf(item):
                     discretized_ranges.append(self.max_laser_value)
                 elif numpy.isnan(item):

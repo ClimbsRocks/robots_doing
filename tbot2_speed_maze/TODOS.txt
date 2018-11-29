@@ -9,3 +9,12 @@ DONE. I think. 2. Modify robot env first, based from maze example, to match our 
 5. Run it and see what breaks!
 
 
+Where we're stuck right now:
+    There's some broken logic about our observation space.
+    Basically, we get readings of len 144 from our laser
+    We want to turn that into something smaller and easier to action on
+    So we use something called new_ranges to figure out some logic for turning 144 into something smaller.
+    We need to create an observation_space that is the same len as our final observation size
+    But there's a bug in how they calculate the len of our readings, and it's all inconsistent.
+    Goal: make the len of our laser readings consistent- let's say 14 for now, and let's just do this the stupid simple way- no averaging, or intelligently including/excluding the ends/1 off of the ends, etc.
+
