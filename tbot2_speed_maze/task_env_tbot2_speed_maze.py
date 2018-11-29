@@ -67,9 +67,9 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         # num_laser_readings = len(laser_scan.ranges) / self.new_ranges
         # print('new_ranges: {}'.format(self.new_ranges))
         # print('num_laser_readings: {}'.format(num_laser_readings))
-        high = numpy.full((int(len_observations)), int(self.max_laser_value))
+        high = numpy.full((int(self.len_observations)), int(self.max_laser_value))
         print('high: {}'.format(high))
-        low = numpy.full((int(len_observations)), int(self.min_laser_value))
+        low = numpy.full((int(self.len_observations)), int(self.min_laser_value))
         print('low: {}'.format(low))
 
         # We only use two integers (???? That makes little sense)
