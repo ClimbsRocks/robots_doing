@@ -55,8 +55,8 @@ class TurtleBot2RobotEnv(robot_gazebo_env.RobotGazeboEnv):
 
         # We launch the init function of the Parent Class robot_gazebo_env.RobotGazeboEnv
         super().__init__(self
-                         , controllers_list=self.controllers_list,
-                        robot_name_space=self.robot_name_space,
+                        #  , controllers_list=self.controllers_list,
+                        # robot_name_space=self.robot_name_space,
                         reset_controls=False,
                         start_init_physics_parameters=False)
         # super(TurtleBot2RobotEnv, self).__init__(controllers_list=self.controllers_list,
