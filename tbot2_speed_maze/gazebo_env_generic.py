@@ -1,8 +1,8 @@
 import rospy
 import gym
 from gym.utils import seeding
-from .gazebo_connection import GazeboConnection
-from .controllers_connection import ControllersConnection
+from openai_ros.gazebo_connection import GazeboConnection
+from openai_ros.controllers_connection import ControllersConnection
 # TODO: make RLExperimentInfo work. I believe I was having trouble finding it to import or something- might have been a compiling error. Regardless, it's not necessary for my definition of an MVP
 #https://bitbucket.org/theconstructcore/theconstruct_msgs/src/master/msg/RLExperimentInfo.msg
 # from theconstruct_msgs.msg import RLExperimentInfo

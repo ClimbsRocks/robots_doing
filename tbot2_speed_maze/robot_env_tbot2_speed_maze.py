@@ -9,9 +9,9 @@ from sensor_msgs.msg import PointCloud2
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Twist
 
+import gazebo_env_generic
 
-
-class TurtleBot2RobotEnv(robot_gazebo_env.RobotGazeboEnv):
+class TurtleBot2RobotEnv(gazebo_env_generic.RobotGazeboEnv):
     """Superclass for all CubeSingleDisk environments.
     """
 
