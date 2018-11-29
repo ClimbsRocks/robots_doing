@@ -62,12 +62,17 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         # We create two arrays based on the binary values that will be assigned
         # In the discretization method.
         laser_scan = self._check_laser_scan_ready()
+        print('laser_scan: {}'.format(laser_scan))
         num_laser_readings = len(laser_scan.ranges) / self.new_ranges
+        print('num_laser_readings: {}'.format(num_laser_readings))
         high = numpy.full((int(num_laser_readings)), int(self.max_laser_value))
+        print('high: {}'.format(high))
         low = numpy.full((int(num_laser_readings)), int(self.min_laser_value))
+        print('low: {}'.format(low))
 
         # We only use two integers (???? That makes little sense)
         self.observation_space = spaces.Box(low, high)
+        print('self.observation_space: {}'.format(self.observation_space))
 
         rospy.logdebug("ACTION SPACES TYPE===>" + str(self.action_space))
         rospy.logdebug("OBSERVATION SPACES TYPE===>" + str(self.observation_space))
