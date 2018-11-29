@@ -9,9 +9,9 @@ from sensor_msgs.msg import PointCloud2
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Twist
 
-import gazebo_env_generic
+import gazebo_env_generic2
 
-class TurtleBot2RobotEnv(gazebo_env_generic.RobotGazeboEnv):
+class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
     """Superclass for all CubeSingleDisk environments.
     """
 
@@ -58,7 +58,7 @@ class TurtleBot2RobotEnv(gazebo_env_generic.RobotGazeboEnv):
                         controllers_list=self.controllers_list
                         , robot_name_space=self.robot_name_space
                         , reset_controls=False
-                        , start_init_physics_parameters=False
+                        # , start_init_physics_parameters=False
                         )
 
         self.gazebo.unpauseSim()
