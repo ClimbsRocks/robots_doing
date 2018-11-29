@@ -79,10 +79,14 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         self.cumulated_steps = 0.0
 
         # Here we will add any init functions prior to starting the MyRobotEnv
-        super(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv, self).__init__(robot_name_space='turtlebot2_speed_maze'
-                                                                            , controllers_list=None
-                                                                            , reset_controls=False
-                                                                            )
+        super().__init__(self, robot_name_space='turtlebot2_speed_maze'
+                        , controllers_list=None
+                        , reset_controls=False
+                        )
+        # super(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv, self).__init__(robot_name_space='turtlebot2_speed_maze'
+        #                                                                     , controllers_list=None
+        #                                                                     , reset_controls=False
+        #                                                                     )
 
     def _set_init_pose(self):
         """Sets the Robot in its init pose
