@@ -211,7 +211,7 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
 
         for idx, observation in enumerate(data.ranges):
 
-            if (observation < self.min_range):
+            if (observation > 0) and (observation < self.min_range):
                 rospy.logdebug("done Validation >>> observation=" + str(observation)+"< "+str(self.min_range))
                 self._episode_done = True
 
@@ -221,7 +221,7 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
                 elif numpy.isnan(observation):
                     discretized_ranges.append(self.min_laser_value)
                 else:
-                    discretized_ranges.append(int(observation))
+                    discretized_ranges.append(round(observation, 2))
 
 
         return discretized_ranges
