@@ -66,6 +66,7 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
         self._check_all_sensors_ready()
 
         # We Start all the ROS related Subscribers and publishers
+        rospy.Subscriber("/cmd_vel", Twist, self.cmd_vel_callback)
         rospy.Subscriber("/odom", Odometry, self._odom_callback)
         rospy.Subscriber("/camera/depth/image_raw", Image, self._camera_depth_image_raw_callback)
         rospy.Subscriber("/camera/depth/points", PointCloud2, self._camera_depth_points_callback)
@@ -179,6 +180,10 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
                 rospy.logerr("Current /kobuki/laser/scan not ready yet, retrying for getting laser_scan")
         return self.laser_scan
 
+
+    def cmd_vel_callback(self, data):
+        print('cmd_vel_callback data: {}'.format(data))
+        # self.odom = data
 
     def _odom_callback(self, data):
         self.odom = data
@@ -301,6 +306,8 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
 
         print('THIS IS THE SECTION THAT IS CURRENTLY BROKEN')
         while not rospy.is_shutdown():
+            # self._cmd_vel_pub.publish(cmd_vel_value)
+
             current_odometry = self._check_odom_ready()
             odom_linear_vel = current_odometry.twist.twist.linear.x
             odom_angular_vel = current_odometry.twist.twist.angular.z
