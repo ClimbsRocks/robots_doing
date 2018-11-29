@@ -295,6 +295,7 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
         angular_speed_plus = angular_speed + epsilon
         angular_speed_minus = angular_speed - epsilon
 
+        print('THIS IS THE SECTION THAT IS CURRENTLY BROKEN')
         while not rospy.is_shutdown():
             current_odometry = self._check_odom_ready()
             odom_linear_vel = current_odometry.twist.twist.linear.x

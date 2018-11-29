@@ -1,3 +1,5 @@
+import math
+
 import rospy
 import numpy
 from gym import spaces
@@ -201,24 +203,26 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         self._episode_done = False
 
         discretized_ranges = []
-        keep_idx_mod = len(data.ranges) / len_observations
+        keep_idx_mod = math.ceil(len(data.ranges) / len_observations)
 
         rospy.logdebug("data=" + str(data))
         rospy.logdebug("len_observations=" + str(len_observations))
         rospy.logdebug("keep_idx_mod=" + str(keep_idx_mod))
 
-        for idx, item in enumerate(data.ranges):
+        for idx, observation in enumerate(data.ranges):
+
+            if (observation < self.min_range):
+                rospy.logdebug("done Validation >>> observation=" + str(observation)+"< "+str(self.min_range))
+                self._episode_done = True
+
             if idx % keep_idx_mod == 0:
-                if item == float ('Inf') or numpy.isinf(item):
+                if observation == float ('Inf') or numpy.isinf(observation):
                     discretized_ranges.append(self.max_laser_value)
-                elif numpy.isnan(item):
+                elif numpy.isnan(observation):
                     discretized_ranges.append(self.min_laser_value)
                 else:
-                    discretized_ranges.append(int(item))
+                    discretized_ranges.append(int(observation))
 
-                if (self.min_range > item > 0):
-                    rospy.logdebug("done Validation >>> item=" + str(item)+"< "+str(self.min_range))
-                    self._episode_done = True
 
         return discretized_ranges
 
