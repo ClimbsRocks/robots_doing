@@ -118,7 +118,9 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
                 self.odom = rospy.wait_for_message("/odom", Odometry, timeout=5.0)
                 rospy.logdebug("Current /odom READY=>")
 
-            except:
+            except Exception as e:
+                print(e)
+                raise(e)
                 rospy.logerr("Current /odom not ready yet, retrying for getting odom")
 
         return self.odom
@@ -258,6 +260,7 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
         :param update_rate: Rate at which we check the odometry.
         :return:
         """
+        print('inside move_base')
         cmd_vel_value = Twist()
         cmd_vel_value.linear.x = linear_speed
         cmd_vel_value.angular.z = angular_speed
@@ -267,6 +270,7 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
         self.wait_until_twist_achieved(cmd_vel_value,
                                         epsilon,
                                         update_rate)
+        print('finished with move_base')
 
     def wait_until_twist_achieved(self, cmd_vel_value, epsilon, update_rate):
         """
