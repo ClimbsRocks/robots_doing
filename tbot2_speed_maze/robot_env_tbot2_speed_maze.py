@@ -182,7 +182,8 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
 
 
     def cmd_vel_callback(self, data):
-        print('cmd_vel_callback data: {}'.format(data))
+        # print('cmd_vel_callback data: {}'.format(data))
+        self.cmd_vel_published_val = data
         # self.odom = data
 
     def _odom_callback(self, data):
