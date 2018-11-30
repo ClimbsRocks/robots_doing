@@ -49,7 +49,8 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
         # Internal Vars
         # Doesnt have any accesible controllers
         self.controllers_list = []
-        self.print_odom_data = False
+        # I want to see the first pose
+        self.print_odom_data = True
 
         # It doesnt use namespace
         self.robot_name_space = "turtlebot_2_speed_maze"
