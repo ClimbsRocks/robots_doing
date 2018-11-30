@@ -32,6 +32,9 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         # We set the reward range, which is not compulsory but here we do it.
         self.reward_range = (-numpy.inf, numpy.inf)
 
+        # Initializing with a starting value just so we avoid divide by 0 errors and such- lazy but it works :)
+        self.past_episode_rewards = [150]
+
 
         #number_observations = rospy.get_param('/turtlebot2/n_observations')
         """
@@ -169,6 +172,7 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
 
         if self._episode_done:
             rospy.logerr("TurtleBot2 is Too Close to wall==>")
+            self.past_episode_rewards.append(self.cumulated_reward)
         else:
             rospy.logdebug("TurtleBot2 is Ok ==>")
 
@@ -191,7 +195,7 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         self.cumulated_steps += 1
         rospy.logdebug("Cumulated_steps=" + str(self.cumulated_steps))
 
-        print('Episode Reward: {}, Total Reward: {}, Total Steps: {}'.format(reward, self.cumulated_reward, self.cumulated_steps))
+        print('Episode Reward: {}, Total Reward: {}, Total Steps: {}, Avg Prior Episodes: {}'.format(reward, self.cumulated_reward, self.cumulated_steps, sum(self.past_episode_rewards) / len(self.past_episode_rewards)))
 
         return reward
 
