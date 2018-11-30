@@ -182,7 +182,9 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
 
 
     def cmd_vel_callback(self, data):
-        # print('cmd_vel_callback data: {}'.format(data))
+        if data.angular.z > 0:
+            print('cmd_vel_callback data: {}'.format(data))
+
         self.cmd_vel_published_val = data
         # self.odom = data
 
@@ -270,6 +272,8 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
         cmd_vel_value = Twist()
         cmd_vel_value.linear.x = linear_speed
         cmd_vel_value.angular.z = angular_speed
+        # if angular_speed > 0:
+        #     print(cmd_vel_value)
         rospy.logdebug("TurtleBot2 Base Twist Cmd>>" + str(cmd_vel_value))
         self._check_publishers_connection()
         self._cmd_vel_pub.publish(cmd_vel_value)
