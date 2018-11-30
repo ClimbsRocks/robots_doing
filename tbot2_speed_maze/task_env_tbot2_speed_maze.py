@@ -159,7 +159,7 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
                                                                 self.len_observations
                                                                 )
 
-        rospy.logdebug("Observations==>"+str(discretized_observations))
+        # rospy.logdebug("Observations==>"+str(discretized_observations))
         rospy.logdebug("END Get Observation ==>")
         return discretized_observations
 
@@ -205,9 +205,9 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         discretized_ranges = []
         keep_idx_mod = math.ceil(len(data.ranges) / len_observations)
 
-        rospy.logdebug("data=" + str(data))
+        # rospy.logdebug("data=" + str(data))
         rospy.logdebug("len_observations=" + str(len_observations))
-        rospy.logdebug("keep_idx_mod=" + str(keep_idx_mod))
+        # rospy.logdebug("keep_idx_mod=" + str(keep_idx_mod))
 
         for idx, observation in enumerate(data.ranges):
 
