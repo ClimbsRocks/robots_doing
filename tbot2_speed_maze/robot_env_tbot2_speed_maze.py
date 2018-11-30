@@ -49,6 +49,7 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
         # Internal Vars
         # Doesnt have any accesible controllers
         self.controllers_list = []
+        self.print_odom_data = False
 
         # It doesnt use namespace
         self.robot_name_space = "turtlebot_2_speed_maze"
@@ -184,13 +185,16 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
     def cmd_vel_callback(self, data):
         if data.angular.z > 0:
             print('cmd_vel_callback data: {}'.format(data))
-            print('odom data: {}'.format(self.odom))
+            self.print_odom_data = True
+            # print('odom data: {}'.format(self.odom))
+        else:
+            self.print_odom_data = False
 
         self.cmd_vel_published_val = data
-        # self.odom = data
 
     def _odom_callback(self, data):
-
+        if self.print_odom_data:
+            print(data)
         self.odom = data
 
     def _camera_depth_image_raw_callback(self, data):
@@ -282,7 +286,7 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
 
         # Temporarily just sleeping here, to avoid the whole wait_until_twist_achieved thing, since it seems the robot in this simulation is never able to achieve that speed.
         rate = rospy.Rate(update_rate)
-        rate.sleep()
+        rate.sleep(20)
         # self.wait_until_twist_achieved(cmd_vel_value,
         #                                 epsilon,
         #                                 update_rate)
