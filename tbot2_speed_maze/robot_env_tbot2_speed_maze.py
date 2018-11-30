@@ -285,8 +285,8 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
         self._cmd_vel_pub.publish(cmd_vel_value)
 
         # Temporarily just sleeping here, to avoid the whole wait_until_twist_achieved thing, since it seems the robot in this simulation is never able to achieve that speed.
-        rate = rospy.Rate(update_rate)
-        rate.sleep(20)
+        rate = rospy.Rate(20)
+        rate.sleep()
         # self.wait_until_twist_achieved(cmd_vel_value,
         #                                 epsilon,
         #                                 update_rate)
