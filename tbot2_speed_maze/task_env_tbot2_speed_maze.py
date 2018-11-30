@@ -190,6 +190,8 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         self.cumulated_steps += 1
         rospy.logdebug("Cumulated_steps=" + str(self.cumulated_steps))
 
+        print('Episode Reward: {}, Total Reward: {}, Total Steps: {}'.format(reward, self.cumulated_reward, self.cumulated_steps))
+
         return reward
 
 
