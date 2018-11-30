@@ -139,6 +139,7 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
             angular_speed = -1 * self.angular_speed
             self.last_action = "TURN_RIGHT"
 
+        print(self.last_action)
         # We tell TurtleBot2 the linear and angular speed to set to execute
         self.move_base(linear_speed, angular_speed, epsilon=0.05, update_rate=10)
 
