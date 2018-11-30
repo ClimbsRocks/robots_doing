@@ -65,18 +65,18 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         # We create two arrays based on the binary values that will be assigned
         # In the discretization method.
         laser_scan = self._check_laser_scan_ready()
-        print('laser_scan: {}'.format(laser_scan))
+        # print('laser_scan: {}'.format(laser_scan))
         # num_laser_readings = len(laser_scan.ranges) / self.new_ranges
         # print('new_ranges: {}'.format(self.new_ranges))
         # print('num_laser_readings: {}'.format(num_laser_readings))
         high = numpy.full((int(self.len_observations)), int(self.max_laser_value))
-        print('high: {}'.format(high))
+        # print('high: {}'.format(high))
         low = numpy.full((int(self.len_observations)), int(self.min_laser_value))
-        print('low: {}'.format(low))
+        # print('low: {}'.format(low))
 
         # We only use two integers (???? That makes little sense)
         self.observation_space = spaces.Box(low, high)
-        print('self.observation_space: {}'.format(self.observation_space))
+        # print('self.observation_space: {}'.format(self.observation_space))
 
         rospy.logdebug("ACTION SPACES TYPE===>" + str(self.action_space))
         rospy.logdebug("OBSERVATION SPACES TYPE===>" + str(self.observation_space))
@@ -169,7 +169,7 @@ class TurtleBot2SpeedMazeTaskEnv(robot_env_tbot2_speed_maze.TurtleBot2RobotEnv):
         if self._episode_done:
             rospy.logerr("TurtleBot2 is Too Close to wall==>")
         else:
-            rospy.logerr("TurtleBot2 is Ok ==>")
+            rospy.logdebug("TurtleBot2 is Ok ==>")
 
         return self._episode_done
 

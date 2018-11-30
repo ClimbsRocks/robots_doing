@@ -121,7 +121,7 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
 
             except Exception as e:
                 print(e)
-                raise(e)
+                # raise(e)
                 rospy.logerr("Current /odom not ready yet, retrying for getting odom")
 
         return self.odom
@@ -176,7 +176,7 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
 
             except Exception as e:
                 print(e)
-                raise(e)
+                # raise(e)
                 rospy.logerr("Current /kobuki/laser/scan not ready yet, retrying for getting laser_scan")
         return self.laser_scan
 
@@ -265,7 +265,7 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
         :param update_rate: Rate at which we check the odometry.
         :return:
         """
-        print('inside move_base')
+        # print('inside move_base')
         cmd_vel_value = Twist()
         cmd_vel_value.linear.x = linear_speed
         cmd_vel_value.angular.z = angular_speed
@@ -280,7 +280,7 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
         #                                 epsilon,
         #                                 update_rate)
 
-        print('finished with move_base')
+        # print('finished with move_base')
 
     def wait_until_twist_achieved(self, cmd_vel_value, epsilon, update_rate):
         """
@@ -309,7 +309,7 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
         angular_speed_plus = angular_speed + epsilon
         angular_speed_minus = angular_speed - epsilon
 
-        print('THIS IS THE SECTION THAT IS CURRENTLY BROKEN')
+        # print('THIS IS THE SECTION THAT IS CURRENTLY BROKEN')
         while not rospy.is_shutdown():
             # self._cmd_vel_pub.publish(cmd_vel_value)
 
