@@ -272,9 +272,14 @@ class TurtleBot2RobotEnv(gazebo_env_generic2.RobotGazeboEnv):
         rospy.logdebug("TurtleBot2 Base Twist Cmd>>" + str(cmd_vel_value))
         self._check_publishers_connection()
         self._cmd_vel_pub.publish(cmd_vel_value)
-        self.wait_until_twist_achieved(cmd_vel_value,
-                                        epsilon,
-                                        update_rate)
+
+        # Temporarily just sleeping here, to avoid the whole wait_until_twist_achieved thing, since it seems the robot in this simulation is never able to achieve that speed.
+        rate = rospy.Rate(update_rate)
+        rate.sleep()
+        # self.wait_until_twist_achieved(cmd_vel_value,
+        #                                 epsilon,
+        #                                 update_rate)
+
         print('finished with move_base')
 
     def wait_until_twist_achieved(self, cmd_vel_value, epsilon, update_rate):
