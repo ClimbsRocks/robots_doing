@@ -32,6 +32,7 @@ Paths forward:
             - The simulator seems tow ork fine with teleop after rospy.init_node, and before gym.make
             - The simulator is entirely unresponsive to teleop after running gym.make
             - roslaunch teleop starts at a value of 0.2, but rosrun teleop starts with a speed of 0.5 (I think). there's definitely some discrepancy, and i think it comes to who launches it.
+            - Simulator seems fine stopping the code inside gazebo_env2 init before doing anything
     - Delete TurtleBot and spawn BurgerBot, and see if that works any better
         - We'll have to create a script to do this.
         - Do it in py2, init a node, delete the item, respawn the new item from the .urdf.xacro files we already know about

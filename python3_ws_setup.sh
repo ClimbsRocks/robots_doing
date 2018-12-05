@@ -56,9 +56,7 @@ cd ~/python3_ws
 source devel/setup.bash
 cd ~/python3_ws/src
 git checkout deepq
-git pull origin deepq
-
-roslaunch tbot2_speed_maze start_training.launch
+git pull origin deepq && roslaunch tbot2_speed_maze start_training.launch
 
 # rosservice call gazebo/get_world_properties
 # rosservice call gazebo/delete_model "mobile_base"
