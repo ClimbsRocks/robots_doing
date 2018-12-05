@@ -59,3 +59,13 @@ git checkout deepq
 git pull origin deepq
 
 roslaunch tbot2_speed_maze start_training.launch
+
+# rosservice call gazebo/get_world_properties
+# rosservice call gazebo/delete_model "mobile_base"
+
+# rosrun gazebo_ros spawn_model -file `rospack find rrbot_description`/urdf/rrbot.xml -urdf -y 1 -model rrbot1 -robot_namespace rrbot1
+# rosrun gazebo_ros spawn_model -file /home/simulations/public_sim_ws/src/all/turtlebot3/turtlebot3/turtlebot3_description/urdf/turtlebot3_burger.urdf.xacro -urdf -y 1 -model burgerbot1 -robot_namespace burgerbot1
+
+
+
+

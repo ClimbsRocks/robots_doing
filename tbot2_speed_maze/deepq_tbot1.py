@@ -18,6 +18,8 @@ def main():
     rospy.init_node('deep_turtle_gym', anonymous=True) #This is the line you have to add
     # rospy.init_node('deep_turtle_gym', anonymous=True, log_level=rospy.DEBUG) #This is the line you have to add
 
+    raise(IntentionalStoppingError('init_node finished'))
+
     print('making env')
     env = gym.make('TurtleBot2SpeedMaze-v0')
     print('made env')

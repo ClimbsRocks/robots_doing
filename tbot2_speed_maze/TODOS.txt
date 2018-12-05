@@ -18,3 +18,46 @@ Where we're stuck right now:
     But there's a bug in how they calculate the len of our readings, and it's all inconsistent.
     Goal: make the len of our laser readings consistent- let's say 14 for now, and let's just do this the stupid simple way- no averaging, or intelligently including/excluding the ends/1 off of the ends, etc.
 
+What I know:
+    - The issue appears to come when I run my own code.
+        - Have I verified it doesn't come from sourcing the devel/setup.bash? I'm not sure. Verify that first.
+    - The arc off to the right seems to be what this particular TurtleBot does in all the simulators I've seen. I think it's just massively exaggerated by the slowness.
+
+
+Paths forward:
+    - Debug current TurtleBot
+        - Run the training script, intentionally raising errors at the end of each step, then running `rosrun teleop_twist_keyboard teleop_twist_keyboard.py` afterwards, to see where the error is created.
+        - We'll probably have to reload the simulator after we bork it. Just switch to the micro project lesson, then switch back.
+    - Delete TurtleBot and spawn BurgerBot, and see if that works any better
+        - We'll have to create a script to do this.
+        - Do it in py2, init a node, delete the item, respawn the new item from the .urdf.xacro files we already know about
+    - Start working with AWS's RoboMaker
+        - Option: Start working with DeepRacer
+        - It failed on the basic install script last time- literally the first step in their hello world example. Not a promising start.
+    - Start working with xArm since their ROS controllers and a Gazebo environment are now out!
+        - We'll have to get our own ubuntu environment. Which I'd prefer to be our own Ubuntu machine. Then rages the debate of whether to go for the basics of the full-blown build-your-own massive GPU supercluster (minus the GPUs), or just to get a cheap desktop Ubuntu machine, which will lead to us having two machines over time.
+    - Switch to a different simulation entirely.
+        - Find a simulation that works in py3, and use it.
+
+
+Christmas Gift Ideas for Mel & Justin
+- Vest for him. Patagonia/Columbia style. Not black. Can wear into office and on weekends. Outdoor Voices and such. Maybe Nate & I split.
+- Mel- Running gear. Same for Justin?
+- Ticket to Ride (other editions possible), or the fancy box for it
+- Wits & Wagers
+- CookBooks, ideally with favorite recipes highlighted
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
