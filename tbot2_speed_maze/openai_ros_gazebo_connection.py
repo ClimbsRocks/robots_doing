@@ -27,18 +27,18 @@ class GazeboConnection():
         self.reset_world_or_sim = reset_world_or_sim
         self.init_values()
         # We always pause the simulation, important for legged robots learning
-        rospy.logwarn('TEMPORARILY NOT PAUSING SIM inside GazeboConnection. This is to help us debug and figure out what step is breaking our simulator. Having a paused sim looks broken, and stops our debugging efforts.')
-        # self.pauseSim()
+        self.pauseSim()
 
     def pauseSim(self):
-        rospy.logdebug("Starting pauseSim")
-        rospy.wait_for_service('/gazebo/pause_physics')
-        try:
-            self.pause()
-        except rospy.ServiceException as e:
-            print ("/gazebo/pause_physics service call failed")
+        rospy.logwarn('TEMPORARILY NOT PAUSING SIM inside GazeboConnection. This is to help us debug and figure out what step is breaking our simulator. Having a paused sim looks broken, and stops our debugging efforts.')
+        # rospy.logdebug("Starting pauseSim")
+        # rospy.wait_for_service('/gazebo/pause_physics')
+        # try:
+        #     self.pause()
+        # except rospy.ServiceException as e:
+        #     print ("/gazebo/pause_physics service call failed")
 
-        rospy.logdebug("Finished with pauseSim")
+        # rospy.logdebug("Finished with pauseSim")
 
     def unpauseSim(self):
         rospy.logdebug("starting unpauseSim")

@@ -25,7 +25,7 @@ def main():
     print('making env')
     env = gym.make('TurtleBot2SpeedMaze-v0')
     print('made env')
-    raise(IntentionalStopping('init_node finished'))
+    raise(IntentionalStopping('gym.make finished'))
 
     # model = deepq.models.mlp([64])
     print('entering deepq.learn')
