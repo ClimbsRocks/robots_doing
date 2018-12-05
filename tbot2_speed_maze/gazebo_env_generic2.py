@@ -21,13 +21,13 @@ class RobotGazeboEnv(gym.Env):
         self.controllers_object = ControllersConnection(namespace=robot_name_space, controllers_list=controllers_list)
         self.reset_controls = reset_controls
         self.seed()
+        raise(IntentionalStopping('inside RobotGazeboEnv before doing anything inside init'))
 
         # Set up ROS related variables
         self.episode_num = 0
         self.cumulated_episode_reward = 0
         self.reward_pub = rospy.Publisher('/openai/reward', RLExperimentInfo, queue_size=1)
         rospy.logwarn("END init RobotGazeboEnv")
-        raise(IntentionalStopping('inside RobotGazeboEnv before doing anything inside init'))
 
     # Env methods
     def seed(self, seed=None):
