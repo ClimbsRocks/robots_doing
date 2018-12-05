@@ -1,7 +1,7 @@
 import rospy
 import gym
 from gym.utils import seeding
-from openai_ros.gazebo_connection import GazeboConnection
+from openai_ros_gazebo_connection import GazeboConnection
 from openai_ros.controllers_connection import ControllersConnection
 #https://bitbucket.org/theconstructcore/theconstruct_msgs/src/master/msg/RLExperimentInfo.msg
 from theconstruct_msgs.msg import RLExperimentInfo

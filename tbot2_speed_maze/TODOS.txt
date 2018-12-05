@@ -35,6 +35,8 @@ Paths forward:
             - Simulator seems fine stopping the code inside gazebo_env2 init before doing anything
             - Simulator is unresponsive when putting break point at the end of __init__ in generic_gazebo_env2.py
             - Simulator is unresponsive when putting break point after GazeboConnection and ControllerConnection block
+            - It appears to be the GazeboConnection
+            - Ugh, nvm, the GazeboConnection just pauses things. That's annoying.
     - Delete TurtleBot and spawn BurgerBot, and see if that works any better
         - We'll have to create a script to do this.
         - Do it in py2, init a node, delete the item, respawn the new item from the .urdf.xacro files we already know about
