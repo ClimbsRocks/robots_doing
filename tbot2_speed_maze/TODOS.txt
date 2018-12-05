@@ -28,6 +28,10 @@ Paths forward:
     - Debug current TurtleBot
         - Run the training script, intentionally raising errors at the end of each step, then running `rosrun teleop_twist_keyboard teleop_twist_keyboard.py` afterwards, to see where the error is created.
         - We'll probably have to reload the simulator after we bork it. Just switch to the micro project lesson, then switch back.
+        Collected data:
+            - The simulator seems tow ork fine with teleop after rospy.init_node, and before gym.make
+            - The simulator is entirely unresponsive to teleop after running gym.make
+            - roslaunch teleop starts at a value of 0.2, but rosrun teleop starts with a speed of 0.5 (I think). there's definitely some discrepancy, and i think it comes to who launches it.
     - Delete TurtleBot and spawn BurgerBot, and see if that works any better
         - We'll have to create a script to do this.
         - Do it in py2, init a node, delete the item, respawn the new item from the .urdf.xacro files we already know about

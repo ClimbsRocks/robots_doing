@@ -16,7 +16,7 @@ class RobotGazeboEnv(gym.Env):
     def __init__(self, robot_name_space, controllers_list, reset_controls, start_init_physics_parameters=True, reset_world_or_sim="SIMULATION"):
 
         # To reset Simulations
-        IntentionalStopping('inside RobotGazeboEnv before doing anything inside init')
+        raise(IntentionalStopping('inside RobotGazeboEnv before doing anything inside init'))
         rospy.logwarn("START init RobotGazeboEnv")
         self.gazebo = GazeboConnection(start_init_physics_parameters, reset_world_or_sim)
         self.controllers_object = ControllersConnection(namespace=robot_name_space, controllers_list=controllers_list)
