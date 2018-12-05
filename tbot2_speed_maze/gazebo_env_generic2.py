@@ -18,10 +18,10 @@ class RobotGazeboEnv(gym.Env):
         # To reset Simulations
         rospy.logwarn("START init RobotGazeboEnv")
         self.gazebo = GazeboConnection(start_init_physics_parameters, reset_world_or_sim)
+        raise(IntentionalStopping('inside RobotGazeboEnv before doing anything inside init'))
         self.controllers_object = ControllersConnection(namespace=robot_name_space, controllers_list=controllers_list)
         self.reset_controls = reset_controls
         self.seed()
-        raise(IntentionalStopping('inside RobotGazeboEnv before doing anything inside init'))
 
         # Set up ROS related variables
         self.episode_num = 0
